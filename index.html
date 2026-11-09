@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src = "js/scripte.js" defer></script>
     <title>DevSec</title>
 </head>
 <body>
-    <header class = "p-3 bg-[#1d2a3b] text-white ">
+    <header class = "pl-2 pr-2 bg-[#1d2a3b] text-white ">
         <nav class="flex flex-col gap-2 p-4 md:flex-row md:justify-between">
             <a href="index.html" class="font-bold text-[30px] hover:text-gray-300">DevScop</a>
             <div class="flex gap-4">
                 <a href="recherche.html" class="hover:text-gray-300">Recherche</a>
-                <a href="cheklist.html"class="hover:text-gray-300" >CheckList</a>
+                <a href="cheklist.html"class="hover:text-gray-300" >ShortList</a>
             </div>
         </nav>
     </header>
@@ -27,15 +28,13 @@
 
         <form class="mt-11 mx-auto flex max-w-[620px] items-center gap-3 rounded-2xl border border-white [#0e1120] p-2 shadow-xl focus-within:border-blue-400/30">
 
-            <input type="text" placeholder="Entrez un nom d'utilisateur..." class="min-w-0 flex-1 bg-transparent px-1 py-3 text-sm text-white outline-none placeholder:text-gray-500"
-            >
+            <input id = "search" type="text" placeholder="Entrez un nom d'utilisateur..." class="min-w-0 flex-1 bg-transparent px-1 py-3 text-sm text-white outline-none placeholder:text-gray-500">
 
             <button type="submit" class="shrink-0 rounded-xl bg-blue-400/40 px-5 py-3 text-sm font-bold text-white transition hover:scale-105">
                 Analyser →
             </button>
-
         </form>
-
+        <p id="error" class="hidden mt-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-400"> </p>
     </div>
 </section>
 </body>
