@@ -1,6 +1,7 @@
-import {GetUsernameValid} from "./utils.js"
-// import {search} from "./scripte.js"
+import {GetUsernameValid, checkGithubUser} from "./utils.js"
 import {form} from "./scripte.js"
+
+
 export function Search_User(){
     form.addEventListener("submit", (event) => {
         event.preventDefault();

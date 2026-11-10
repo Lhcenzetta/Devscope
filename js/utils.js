@@ -13,14 +13,14 @@ export function GetUsernameValid(value) {
 }
 
 
-// async function checkGithubUser(username) {
-//     const response = await fetch(
-//         `https://api.github.com/users/${encodeURIComponent(username)}`
-//     );
+export async function checkGithubUser(username) {
+    const response = await fetch(
+        `https://api.github.com/users/${encodeURIComponent(username)}`
+    );
 
-//     if (!response.ok) {
-//         return false;
-//     }
+    if (!response.ok) {
+        return false;
+    }
 
-//     return true;
-// }
+    return true;
+}
