@@ -1,9 +1,12 @@
 import { getUserdata, getRepos , PostUser} from "./api.js";
 import {InjectionReposDom} from "./InjectionReposDom.js"
 import { IjnectUser } from "./injectUserDom.js";
+const user_name = document.querySelector("#username")
 const shortlist_btn = document.querySelector("#shortlist-btn")
+const btn_search  = document.querySelector("#btn2")
 const params = new URLSearchParams(window.location.search);
 const username = params.get("code");
+user_name.value = username
 
 
 async function loadProfile(username) {
@@ -38,5 +41,5 @@ async function loadProfile(username) {
 }
 }
 loadProfile(username);
-
+btn_search.addEventListener("click" , () => {loadProfile(username)})
 

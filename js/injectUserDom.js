@@ -8,6 +8,8 @@ const repo_count = document.querySelector("#repo-count")
 const followers_count = document.querySelector("#followers-count")
 const following_count = document.querySelector("#following-count")
 const profile_link = document.querySelector("#profile-link")
+
+
 export function IjnectUser(user){
     profilename.textContent = user.name
     profileusername.textContent = user.login
