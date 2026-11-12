@@ -20,8 +20,6 @@
 // }
 
 
-
-
 export async function getRepos() {
     const response = await fetch("./repos.json");
 
@@ -44,4 +42,20 @@ export async function getUserdata() {
     const data = await response.json();
     
     return data;
+}
+
+export async function GetUserMockApi() {
+    const response = await fetch("https://6af4a53655a1de7dcf04573c.mockapi.io/api/v1/candidats")
+    if (!response.ok)
+        throw new Error("Failed to load data from that api")
+    const data = await response.json()
+    return data
+}
+
+export async function PostUser(nouveauCandidat){
+    const response = await fetch("https://6af4a53655a1de7dcf04573c.mockapi.io/api/v1/candidats" , {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(nouveauCandidat)
+    })
 }
