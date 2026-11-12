@@ -1,6 +1,5 @@
-import { getUserdata, getRepos} from "./api.js";
+import { getUserdata, getRepos , PostUser} from "./api.js";
 import {InjectionReposDom} from "./InjectionReposDom.js"
-import { afficherMessage } from "./utils.js";
 import { IjnectUser } from "./injectUserDom.js";
 const shortlist_btn = document.querySelector("#shortlist-btn")
 const params = new URLSearchParams(window.location.search);
@@ -13,8 +12,20 @@ async function loadProfile(username) {
     const repos = await getRepos(username);
     IjnectUser(user)
     InjectionReposDom(repos)
-    shortlist_btn.addEventListener("click" , () => {});
-    
+    shortlist_btn.addEventListener("click" , () => {
+      const nouveauCandidat = {
+        login: user.login,
+        name: user.name,
+        avatar_url: user.avatar_url,
+        html_url:user.html_url,
+        language: "JavaScripte",
+        rating: 5,
+        status: "À contacter",
+        note: "",
+        createdAt: new Date().toISOString()
+      };
+      PostUser(nouveauCandidat)
+    });
   } 
   catch (error) {
 //  if (error.status === 404) {
