@@ -24,3 +24,29 @@ export async function checkGithubUser(username) {
 
     return true;
 }
+
+export function afficherMessage(texte, success) {
+    const notification = document.querySelector("#notification");
+    const message = document.querySelector("#message");
+
+    message.textContent = texte;
+
+    if (success) {
+        notification.classList.remove("bg-red-100", "border-red-500");
+        notification.classList.add("bg-green-100", "border-green-500");
+
+        message.classList.remove("text-red-700");
+        message.classList.add("text-green-700");
+    }
+    else {
+        notification.classList.remove("bg-green-100", "border-green-500");
+        notification.classList.add("bg-red-100", "border-red-500");
+
+        message.classList.remove("text-green-700");
+        message.classList.add("text-red-700");
+    }
+    notification.classList.remove("hidden");
+    setTimeout(() => {
+        notification.classList.add("hidden");
+    }, 2000);
+}
