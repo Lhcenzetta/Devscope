@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./js/ShortListUI.js" type="module" defer ></script>
+    <title>DevSec</title>
+</head>
+<body>
+    <header class = "pl-2 pr-2 bg-[#1d2a3b] text-white ">
+        <nav class="flex flex-col gap-2 p-4 md:flex-row md:justify-between">
+            <a href="index.html" class="font-bold text-[30px] hover:text-gray-300">DevScop</a>
+            <div class="flex gap-4">
+                <a href="recherche.html" class="hover:text-gray-300">Recherche</a>
+                <a href="cheklist.html"class="hover:text-gray-300" >ShortList</a>
+            </div>
+        </nav>
+    </header>
+
+<section class="min-h-screen bg-[#080a12] p-5">
+    <div class="mb-7">
+        <h1 class="text-2xl font-bold text-cyan-400"> Ma shortlist </h1>
+        <p id="shortlist-count" class="mt-1 text-xs text-gray-400"> <span id = "numberusers">0</span> candidat(s) dans votre shortlist </p>
+    </div>
+    <div id="shortlist-container" class="flex flex-col gap-3">
+        
+    </div>
+
+</section>
+
+</body>
+</html>

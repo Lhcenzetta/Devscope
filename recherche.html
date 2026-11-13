@@ -1,0 +1,74 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script type="module" src="js/pageProfile.js" defer></script>
+        <link rel="stylesheet" href="/css/style.css">
+        <title>DevSec</title>
+    </head>
+    <body>
+        <header class = "pl-2 pr-2 bg-[#1d2a3b] text-white ">
+            <nav class="flex flex-col gap-2 p-4 md:flex-row md:justify-between">
+                <a href="index.html" class="font-bold text-[30px] hover:text-gray-300">DevScop</a>
+                <div class="flex gap-4">
+                    <a href="recherche.html" class="hover:text-gray-300">Recherche</a>
+                    <a href="cheklist.html"class="hover:text-gray-300" >ShortList</a>
+                </div>
+            </nav>
+        </header>
+        <section class="min-h-screen bg-[#080a12] p-3 text-white">
+            <div  class="flex items-center gap-3 rounded-2xl border border-white/5 bg-[#0e1120] p-2.5">
+                <input id="username" type="text" placeholder="Nom d'utilisateur" class="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-gray-500">
+                <button id = "btn2" class="rounded-xl border border-cyan-500/30 bg-blue-500/10 px-4 py-2 text-sm font-semibold text-blue-400/50 hover:bg-blue-500/20">Rechercher</button>
+            </div>
+            <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[324px_1fr]">
+                <aside class="rounded-2xl border border-white/5 bg-[#0e1120] p-6">
+                    <div class="flex flex-col items-center gap-3">
+                        <div class="h-28 w-28 rounded-full border-[3px] border-red-500 bg-[#171a29] shadow-[0_0_25px_rgba(217,70,239,0.3)]">
+                            <img id = "myImage" alt="Avatar" class="rounded-full">
+                        </div>
+                         <div class="mt-r space-y-2 flex flex-col items-center ">
+                            <h2 id="profile-name" class="text-2xl font-bold">profile name</h2>
+                            <p id="profile-username" class="text-sm text-cyan-400">profile username</p>
+                            <p id="profile-bio" class="pt-2 text-sm text-gray-400 text-center">profile bio</p>
+                        </div>
+                    </div>
+                    <div class="mt-5 space-y-2 rounded-xl bg-[#191c2b] p-4 text-sm text-gray-400">
+                        <p id="profile-location">localisation</p>
+                        <p id="profile-join">date de rejoind</p>
+                    </div>
+                    <div class="mt-4 grid grid-cols-3 gap-2">
+                        <div class="rounded-xl bg-[#191c2b] p-3 text-center">
+                            <p id="repo-count" class="text-xl font-bold text-cyan-400"></p>
+                            <span class="text-[10px] text-white-500">repos</span>
+                        </div>
+
+                        <div class="rounded-xl bg-[#191c2b] p-3 text-center">
+                            <p id="followers-count" class="text-xl font-bold text-pink-400"></p>
+                            <span class="text-[10px] text-white-500">followers</span>
+                        </div>
+
+                         <div class="rounded-xl bg-[#191c2b] p-3 text-center">
+                            <p id="following-count" class="text-xl font-bold text-purple-400"></p>
+                            <span class="text-[10px] text-white-500">following</span>
+                        </div>
+                    </div>
+                    <button id="shortlist-btn" class="mt-5 w-full rounded-xl bg-gradient-to-r from-blue-400 to-pink-500 py-3 text-sm font-bold text-white transition hover:scale-[1.1]">Add to shortlist</button>
+                    <a id="profile-link" href="#" class="mt-8 flex w-full items-center justify-center rounded-xl border border-white/10 py-3 text-sm font-semibold text-blue-400 transition hover:bg-white/5">voir repo origine</a>
+                </aside>
+                <main class="min-w-0 rounded-2xl border border-white/5 bg-[#0e1120] p-5 sm:p-6">
+                    <div class="mb-6 flex items-center gap-3">
+                        <h2 class="text-2xl font-bold"> repos </h2>
+                        <span id="total-repos" class="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-bold text-cyan-400"></span>
+                    </div>
+                    <div id="repositories-container" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
+                </main>
+            </div>
+        </section>
+        <div id="notification"  class="fixed right-3 top-3 z-[60] hidden max-w-[calc(100vw-24px)] rounded-xl border-l-4 border-green-500 bg-green-100 p-4 shadow-lg sm:right-6 sm:top-6">
+        <p id="message" class="text-green-700"></p>
+</div>
+    </body>
+    </html>
