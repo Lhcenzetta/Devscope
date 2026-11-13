@@ -1,16 +1,21 @@
+import { MOCKAPI_URL , GITHUB_API} from "./config.js";
 import { afficherMessage } from "./utils.js";
 export async function getUserdata(username) {
-const response = await fetch(`https://api.github.com/users/${username}`);
+const response = await fetch(`${GITHUB_API}/${username}`);
+if (!response.ok)
+    throw new Error("Failed to load data from that api")
 return response.json();
 }
 export async function getRepos(username) {
-const response = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&sort=updated`);
+const response = await fetch(`${GITHUB_API}/${username}/repos?per_page=100&sort=updated`);
+if (!response.ok)
+    throw new Error("Failed to load data from that api")
 return response.json();
 }
 
 
 export async function GetUserMockApi() {
-    const response = await fetch("https://6af4a53655a1de7dcf04573c.mockapi.io/api/v1/candidats")
+    const response = await fetch(MOCKAPI_URL)
     if (!response.ok)
         throw new Error("Failed to load data from that api")
     const data = await response.json()
@@ -22,7 +27,7 @@ export async function PostUser(nouveauCandidat){
     const data = await GetUserMockApi();
     const isexist = data.some(user => user.login === nouveauCandidat.login)
     if (!isexist){
-        const response = await fetch("https://6af4a53655a1de7dcf04573c.mockapi.io/api/v1/candidats" , {
+        const response = await fetch(MOCKAPI_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(nouveauCandidat)
@@ -32,3 +37,4 @@ export async function PostUser(nouveauCandidat){
     else
         afficherMessage("This user aleadry exist in ShortList !", false)
 }
+

@@ -1,4 +1,4 @@
-import { getUserdata, getRepos , PostUser} from "./api.js";
+import {getUser} from "./api.js";
 import {InjectionReposDom} from "./InjectionReposDom.js"
 import { IjnectUser } from "./injectUserDom.js";
 const user_name = document.querySelector("#username")
@@ -11,7 +11,7 @@ user_name.value = username
 
 async function loadProfile(username) {
  try {
-    const user = await  getUserdata(username);
+    const user = await getUser(username);
     const repos = await getRepos(username);
     IjnectUser(user)
     InjectionReposDom(repos)
@@ -32,7 +32,7 @@ async function loadProfile(username) {
   } 
   catch (error) {
 //  if (error.status === 404) {
-//  // afficher "Aucun développeur trouvé"
+//  console.log("Aucun développeur trouvé")
 //  } else if (error.status === 403 || error.status === 429) {
 //  // afficher "Limite de requêtes atteinte"
 //  } else {
@@ -41,5 +41,7 @@ async function loadProfile(username) {
 }
 }
 loadProfile(username);
-btn_search.addEventListener("click" , () => {loadProfile(username)})
+btn_search.addEventListener("click" , (e) => {
+  loadProfile(user_name.value)
+})
 
