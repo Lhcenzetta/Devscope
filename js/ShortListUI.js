@@ -1,16 +1,13 @@
 import { GetUserMockApi } from "./api.js";
-
-    
 const shortlistContainer = document.querySelector("#shortlist-container");
 const shortlistCount = document.querySelector("#shortlist-count");
 
 export async function DisplayShortlist() {
     const candidates = await GetUserMockApi();
-    console.log(candidates)
-    shortlistContainer.innerHTML = "";
+   
+    shortlistContainer.textContent = "";
 
-    shortlistCount.textContent =
-        `${candidates.length} candidat(s) dans votre shortlist`;
+    shortlistCount.textContent = `${candidates.length} candidat(s) dans votre shortlist`;
 
     candidates.forEach(candidate => {
 
@@ -48,8 +45,7 @@ export async function DisplayShortlist() {
         note.className = "mt-1 text-xs italic text-gray-400";
 
         const date = document.createElement("p");
-        date.textContent = "Ajouté le " +
-            new Date(candidate.createdAt).toLocaleDateString("fr-FR");
+        date.textContent = "Ajouté le " + new Date(candidate.createdAt).toLocaleDateString("fr-FR");
         date.className = "mt-1 text-[10px] text-gray-500";
 
         info.appendChild(name);
@@ -66,8 +62,7 @@ export async function DisplayShortlist() {
 
 
         const rating = document.createElement("span");
-        rating.textContent = "★".repeat(candidate.rating) +
-                             "☆".repeat(5 - candidate.rating);
+        rating.textContent = "★".repeat(candidate.rating) + "☆".repeat(5 - candidate.rating);
         rating.className = "text-sm tracking-wider text-lime-400";
 
         const status = document.createElement("span");
@@ -85,3 +80,4 @@ export async function DisplayShortlist() {
 
     });
 }
+DisplayShortlist()
