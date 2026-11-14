@@ -1,21 +1,20 @@
 import { MOCKAPI_URL , GITHUB_API} from "./config.js";
 import { afficherMessage } from "./utils.js";
-export async function getUserdata(username) {
-const response = await fetch(`${GITHUB_API}/${username}`);
-if (!response.ok) {
-    throw new Error(`GitHub API Error: ${response.status}`);
+async function request(url, options = {}) {
+    const response = await fetch(url, options); // erreur réseau -> lancée ici
+    if (!response.ok) {
+        const error = new Error("Erreur HTTP " + response.status);
+        error.status = response.status; // 404, 403, 429, 500...
+        throw error;
+    }
+    return response.json();
 }
-return response.json();
+export function getUser(username) {
+    return request(`${GITHUB_API}/users/${username}`);
 }
-export async function getRepos(username) {
-const response = await fetch(`${GITHUB_API}/${username}/repos?per_page=100&sort=updated`);
-if (!response.ok) {
-    throw new Error(`GitHub API Error: ${response.status}`);
+export function getRepos(username) {
+    return request(`${GITHUB_API}/users/${username}/repos?per_page=100&sort=updated`);
 }
-return response.json();
-}
-
-
 export async function GetUserMockApi() {
     const response = await fetch(MOCKAPI_URL)
     if (!response.ok)
