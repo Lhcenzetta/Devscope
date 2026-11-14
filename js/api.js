@@ -2,14 +2,16 @@ import { MOCKAPI_URL , GITHUB_API} from "./config.js";
 import { afficherMessage } from "./utils.js";
 export async function getUserdata(username) {
 const response = await fetch(`${GITHUB_API}/${username}`);
-if (!response.ok)
-    throw new Error("Failed to load data from that api")
+if (!response.ok) {
+    throw new Error(`GitHub API Error: ${response.status}`);
+}
 return response.json();
 }
 export async function getRepos(username) {
 const response = await fetch(`${GITHUB_API}/${username}/repos?per_page=100&sort=updated`);
-if (!response.ok)
-    throw new Error("Failed to load data from that api")
+if (!response.ok) {
+    throw new Error(`GitHub API Error: ${response.status}`);
+}
 return response.json();
 }
 
