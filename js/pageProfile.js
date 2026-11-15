@@ -15,10 +15,8 @@ let currentUser = null;
 
 
 function showLoading() {
-  console.log(loading)
   loading.classList.remove("hidden");
   loading.classList.add("flex");
-
   overlay.classList.remove("hidden");
 }
 
@@ -28,10 +26,14 @@ function hideLoading() {
   overlay.classList.add("hidden");
 }
 
+if (!username) {
+  content.innerHTML = ""
+  rolehide()
+}
 function rolehide() {
   role.classList.remove("hidden")
 }
-
+console.log(username)
 async function loadProfile(username) {
   showLoading();
   try {
@@ -40,7 +42,6 @@ async function loadProfile(username) {
     currentUser = user;
     IjnectUser(user)
     InjectionReposDom(repos)
-    // errorMessage.classList.add("hidden");
     shortlist_btn.addEventListener("click", () => {
       if (!currentUser) return;
       const nouveauCandidat = {
@@ -59,8 +60,7 @@ async function loadProfile(username) {
   }
   catch (error) {
     if (error.status === 404 || error.status === 403 || error.status === 500) {
-      content.innerHTML = ""
-      role.classList.remove("hidden")
+      rolehide()
     }
   }
   finally {
