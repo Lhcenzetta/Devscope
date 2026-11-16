@@ -26,13 +26,15 @@ function hideLoading() {
   overlay.classList.add("hidden");
 }
 
-if (!username) {
-  content.innerHTML = ""
-  rolehide()
-}
 function rolehide() {
+  content.innerHTML = ""
   role.classList.remove("hidden")
 }
+
+if (!username) {
+  rolehide()
+}
+
 console.log(username)
 async function loadProfile(username) {
   showLoading();
