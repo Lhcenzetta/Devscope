@@ -1,8 +1,3 @@
-import { repos, getUserdata } from "./api.js";
-
-const data = await repos();
-
-
 export function FilterSearch(data, searchword, selectedLanguage) {
     const filteredrepo = data.filter(repo => {
         if (repo.language && repo.language.toLowerCase().includes(selectedLanguage)) {

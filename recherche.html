@@ -66,8 +66,33 @@
                     <div class="mb-6 flex items-center gap-3">
                         <h2 class="text-2xl font-bold"> repos </h2>
                         <span id="total-repos" class="rounded-full bg-cyan-500/15 px-3 py-1 text-xs font-bold text-cyan-400"></span>
+                        <div
+                            class="flex ml-auto h-11 w-[42%] mt-5 gap-3 rounded-full border border-cyan-600/50 bg-[#0c1628]/80 px-4 transitionfocus-within:border-cyan-500">
+                            <input id="searchrepo" type="text" placeholder="Rechercher un repo..."
+                                class="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-400">
+                        </div>
+                        <div class="mt-5 flex-wrap ml-auto  items-center justify-between gap-3">
+                            <div id="buttons" class="flex max-w-full justify-end gap-2 overflow-x-auto">
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-xs font-semibold text-white transition">all</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">html</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">javascripte</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">python</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">c++</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">php</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">java</button>
+                            </div>
+                        </div>
                     </div>
                     <div id="repositories-container" class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                        <p id="error" class="hidden mt-3 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm font-medium text-red-400"> </p>
+
                     </div>
                 </main>
         </section>
@@ -85,5 +110,6 @@
     </div>
     </div>
     <div id="loading-overlay" class="fixed hidden inset-0 z-40 bg-black/70 backdrop-blur-sm"></div>
+    
 </body>
 </html>

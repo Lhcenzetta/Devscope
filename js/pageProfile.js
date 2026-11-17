@@ -1,5 +1,6 @@
 import { getUser, PostUser, getRepos } from "./api.js";
-import {InjectionReposDom} from "./InjectionReposDom.js"
+import { InjectionReposDom } from "./InjectionReposDom.js"
+import { FilterSearch } from "./recherche&filtrer.js"
 import { IjnectUser } from "./injectUserDom.js";
 const user_name = document.querySelector("#username")
 const shortlist_btn = document.querySelector("#shortlist-btn")
@@ -8,6 +9,10 @@ const loading = document.querySelector("#loading");
 const overlay = document.querySelector("#loading-overlay");
 const content = document.querySelector("#content")
 const role = document.querySelector("#alert")
+const searchrepo = document.querySelector("#searchrepo")
+const buttons = document.querySelectorAll("#buttons > .filter-btn")
+
+const repositories_container = document.querySelector("#repositories-container")
 const params = new URLSearchParams(window.location.search);
 const username = params.get("code");
 user_name.value = username
@@ -35,7 +40,7 @@ if (!username) {
   rolehide()
 }
 
-console.log(username)
+
 async function loadProfile(username) {
   showLoading();
   try {
@@ -44,6 +49,7 @@ async function loadProfile(username) {
     currentUser = user;
     IjnectUser(user)
     InjectionReposDom(repos)
+    handlefileter(repos)
     shortlist_btn.addEventListener("click", () => {
       if (!currentUser) return;
       const nouveauCandidat = {
@@ -75,3 +81,21 @@ loadProfile(username);
 btn_search.addEventListener("click", () => {
   loadProfile(user_name.value);
 });
+
+function handlefileter(datarepos) {
+  let selectedLanguage = "all";
+  let searchword = "";
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      selectedLanguage = btn.textContent
+      const repos = FilterSearch(datarepos, searchword, selectedLanguage)
+      InjectionReposDom(repos)
+    })
+  })
+  searchrepo.addEventListener("input", (e) => {
+    searchword = e.target.value.trim()
+    const repos = FilterSearch(datarepos, searchword, selectedLanguage)
+    InjectionReposDom(repos)
+  })
+}
