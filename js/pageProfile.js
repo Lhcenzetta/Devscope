@@ -2,6 +2,7 @@ import { getUser, PostUser, getRepos } from "./api.js";
 import { InjectionReposDom } from "./InjectionReposDom.js"
 import { FilterSearch } from "./recherche&filtrer.js"
 import { IjnectUser } from "./injectUserDom.js";
+import { ranger, relire } from "./cache.js";
 const user_name = document.querySelector("#username")
 const shortlist_btn = document.querySelector("#shortlist-btn")
 const btn_search = document.querySelector("#btn2")
@@ -44,8 +45,18 @@ if (!username) {
 async function loadProfile(username) {
   showLoading();
   try {
-    const user = await getUser(username);
-    const repos = await getRepos(username);
+    let user = relire(username) 
+    let repos;
+    if (user === null) {
+      [user, repos] = await Promise.all([getUser(username), getRepos(username)])
+      // user = await getUser(username);
+      // const repos = await getRepos(username);
+      ranger(username , user)
+    }
+    else {
+      repos = await getRepos(username);
+    }
+    
     currentUser = user;
     IjnectUser(user)
     InjectionReposDom(repos)

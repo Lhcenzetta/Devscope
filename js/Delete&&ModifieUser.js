@@ -1,9 +1,12 @@
 import { DeleteuserFromMock, GetUserMockApi, Modifieruser } from "./api.js";
 import { DisplayShortlist } from "./ShortListUI.js";
-const candidates = await GetUserMockApi();
+const btnclose = document.querySelector("#close-btn")
+const Cancel = document.querySelector("#modal-cancel");
 const modalModifier = document.querySelector("#modal-modifier");
 const formCandidate = document.querySelector("#form-condidat");
-
+const modalConfirmation = document.querySelector("#modal-confirmation");
+const btnCancel = document.querySelector("#Annuler-confirmation");
+const btnConfirm = document.querySelector("#confirmedelete");
 const status = document.querySelector("#status");
 const rating = document.querySelector("#rating");
 const note = document.querySelector("#note");
@@ -12,10 +15,10 @@ const raterror = document.querySelector("#rate-err");
 const noteerr = document.querySelector("#note-err");
 const loading = document.querySelector("#loading");
 const overlay = document.querySelector("#loading-overlay");
+const bouton = document.querySelector("#modal-submit");
 const error = document.querySelector("#error")
 let selectedCandidate = null;
-
-
+let confirme = false
 function showLoading() {
     loading.classList.remove("hidden");
     loading.classList.add("flex");
@@ -27,25 +30,28 @@ function hideLoading() {
     loading.classList.remove("flex");
     overlay.classList.add("hidden");
 }
+export function deletuser(btnDelete, card, candidate) {
 
-export function deletuser(btnDelete,card,candidate) {
-    
-    btnDelete.addEventListener("click", async () => {
-        try {
-            showLoading()
-            btnDelete.disabled = true;
-            await DeleteuserFromMock(candidate.id);
-            const updatedCandidates = await GetUserMockApi();
-            card.remove()
-            DisplayShortlist(updatedCandidates);
-           
-        } catch (error) {
-            error.textContent = error
-        }
-        finally {
-            hideLoading()
-            btnDelete.disabled = false;
-        }
+    btnDelete.addEventListener("click", () => {
+
+        modalConfirmation.classList.remove("hidden");
+        btnConfirm.onclick = async () => {
+            try {
+                showLoading();
+                btnConfirm.disabled = true;
+                await DeleteuserFromMock(candidate.id);
+                const updatedCandidates = await GetUserMockApi();
+                DisplayShortlist(updatedCandidates);
+                modalConfirmation.classList.add("hidden");
+            }
+            catch (err) {
+                error.textContent = error;
+
+            } finally {
+                hideLoading();
+                btnConfirm.disabled = false;
+            }
+        };
     });
 }
 
@@ -60,11 +66,14 @@ export function ModifierUser(btnEdit, candidate) {
     });
 }
 
-
 formCandidate.addEventListener("submit", async (e) => {
+
     e.preventDefault();
+
     if (!selectedCandidate) return;
+
     clearErrors();
+
     const newobject = {
         login: selectedCandidate.login,
         name: selectedCandidate.name,
@@ -76,33 +85,43 @@ formCandidate.addEventListener("submit", async (e) => {
         note: note.value.trim(),
         createdAt: selectedCandidate.createdAt || new Date().toISOString()
     };
+
     let isValid = true;
+
     if (!status.value) {
         statuserr.textContent = "Veuillez choisir un statut.";
         isValid = false;
     }
+
     if (rating.value === "0") {
         raterror.textContent = "Veuillez choisir une note.";
         isValid = false;
     }
+
     if (!isValid) return;
+
     try {
-        showLoading()
+        showLoading();
         bouton.disabled = true;
-        const response = await Modifieruser(selectedCandidate.id, newobject);
-        console.log(response);
-        modalModifier.classList.add("hidden");
+
+        await Modifieruser(selectedCandidate.id, newobject);
+
         const updatedCandidates = await GetUserMockApi();
+
         DisplayShortlist(updatedCandidates);
+
+        modalModifier.classList.add("hidden");
+
         formCandidate.reset();
         selectedCandidate = null;
 
-    } catch (error) {
-        error.textContent = error
-    }
-    finally {
+    } catch (err) {
+        console.error(err);
+        error.textContent = "Erreur lors de la modification.";
+
+    } finally {
         bouton.disabled = false;
-        hideLoading()
+        hideLoading();
     }
 });
 
@@ -113,11 +132,12 @@ function clearErrors() {
     noteerr.textContent = "";
 }
 
-
-
-// btnclose.addEventListener("click", () => {
-//     modalModifier.classList.add("hidden")
-// })
-// Cancel.addEventListener("click", () => {
-//     modalModifier.classList.add("hidden")
-// })
+btnCancel.addEventListener("click", () => {
+    modalConfirmation.classList.add("hidden");
+});
+btnclose.addEventListener("click", () => {
+    modalModifier.classList.add("hidden")
+})
+Cancel.addEventListener("click", () => {
+    modalModifier.classList.add("hidden")
+})
