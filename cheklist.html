@@ -19,15 +19,85 @@
     </header>
 
 <section class="min-h-screen bg-[#080a12] p-5">
-    <div class="mb-7">
-        <h1 class="text-2xl font-bold text-cyan-400"> Ma shortlist </h1>
-        <p id="shortlist-count" class="mt-1 text-xs text-gray-400"> <span id = "numberusers">0</span> candidat(s) dans votre shortlist </p>
+    <div class="flex justify-between mb-7">
+        <div>
+                    <h1 class="text-2xl font-bold text-cyan-400"> Ma shortlist </h1>
+                    <p id="shortlist-count" class="mt-1 text-xs text-gray-400"> <span id="numberusers">0</span> candidat(s) dans votre
+                        shortlist </p>
+        </div>
+        <div>
+            <div class="flex ml-auto h-11 gap-3 rounded-full border border-cyan-600/50 bg-[#0c1628]/80 px-4 transitionfocus-within:border-cyan-500">
+                        <input id="searchrepo" type="text" placeholder="Rechercher un repo..."
+                            class="flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-400">
+                    </div>
+                    <div class="mt-5 flex-wrap ml-auto  items-center justify-between gap-3">
+                        <div id="buttons" class="flex max-w-full justify-end gap-2 overflow-x-auto">
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full bg-cyan-600 px-4 py-2 text-xs font-semibold text-white transition">all</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">À contacter</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">entretien</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">Retenu</button>
+                                <button type="button"
+                                    class="filter-btn shrink-0 rounded-full border border-slate-600/60 bg-slate-800/50 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-cyan-700">Refusé</button>
+                        </div>
+                    </div>
+        </div>
     </div>
     <div id="shortlist-container" class="flex flex-col gap-3">
-        
     </div>
-
 </section>
 
+<section id="modal-modifier" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-3 backdrop-blur-sm hidden">
+    <div class="modal  w-full max-w-xl items-center max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-700/60 bg-[#082F49] p-5 sm:p-6 shadow-2xl">
+        <div class="mb-5 flex items-start justify-between gap-3">
+            <div>
+                <p class="mb-2 text-xs font-bold uppercase tracking-widest text-[#22D3EE]">Mise à jour du profil</p>
+                <h2 class="text-lg font-bold text-white sm:text-xl"> Modifier le candidat
+                    <span id="update-candidate-name" class="bg-gradient-to-r from-[#22D3EE] to-pink-500 bg-clip-text text-transparent">
+                    </span>
+                </h2>
+            </div>
+            <button type="button" id="close-btn" class="h-10 w-10 items-center justify-center rounded-lg bg-slate-800 text-xl text-white hover:bg-slate-700 ">
+                &times;
+            </button>
+        </div>
+        <form id="form-condidat" class="space-y-4" novalidate>
+            <div>
+                <label for="status" class="mb-2 block text-sm font-semibold text-slate-200"> Statut de recrutement </label>
+                <select id="status" name="status" class="w-full rounded-xl border border-slate-600/60 bg-slate-800/80 px-4 py-3 text-sm text-white outline-none focus:border-[#22D3EE]">
+                    <option value="A contacter" selected>À contacter</option>
+                    <option value="entretien">entretien</option>
+                    <option value="Retenu">Retenu</option>
+                    <option value="Refuse">Refusé</option>
+                </select>
+                <p id="status-err" class="message mt-2 text-sm text-red-400"></p>
+            </div>
+            <div>
+                <label for="rating" class="mb-2 block text-sm font-semibold text-slate-200"> Note <i class="fa-solid fa-star"></i> </label>
+                <select id="rating" name="rating" class="w-full rounded-xl border border-slate-600/60 bg-slate-800/80 px-4 py-3 text-sm text-white outline-none focus:border-[#22D3EE]">
+                    <option value="0" disabled selected>Choisir une note</option>
+                    <option value="1">★ 1 / 5 </option>
+                    <option value="2">★★ 2 / 5</option>
+                    <option value="3">★★★ 3 / 5</option>
+                    <option value="4">★★★★ 4 / 5</option>
+                    <option value="5">★★★★★ 5 / 5</option>
+                </select>
+                <p id="rate-err" class="message mt-2 text-sm text-red-400"></p>
+            </div>
+            <div>
+                <label for="note" class="mb-2 block text-sm font-semibold text-slate-200"> Note interne </label>
+                <textarea id="note" name="note" rows="3" placeholder="Add an internal note about this candidate..." class="w-full resize-none rounded-xl border border-slate-600/60 bg-slate-800/80 px-4 py-3 text-sm text-white placeholder:text-slate-500 outline-none focus:border-[#22D3EE]"></textarea>
+            </div>
+            <p id="note-err" class="message mt-2 text-sm text-red-400"></p>
+            <div class="flex justify-end gap-3 pt-2">
+                <button type="reset" id="modal-cancel" class="rounded-xl bg-slate-800 px-5 py-3 text-sm font-semibold text-slate-300 transition hover:bg-slate-700"> Annuler </button>
+                <button type="submit" id="modal-submit" class="rounded-xl bg-gradient-to-r from-[#22D3EE] to-pink-500 px-6 py-3 text-sm font-bold text-white shadow-lg hover:scale-[1.02]"> Enregistrer </button>
+            </div>
+        </form>
+    </div>
+</section>
 </body>
 </html>

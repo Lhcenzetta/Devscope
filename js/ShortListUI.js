@@ -1,10 +1,13 @@
 import { GetUserMockApi } from "./api.js";
+import { FilterSearchUser } from "./recherche&filtrer.js"
+import { deletuser, ModifierUser } from "./Delete&&ModifieUser.js";
 const shortlistContainer = document.querySelector("#shortlist-container");
 const shortlistCount = document.querySelector("#shortlist-count");
+const searchrepo = document.querySelector("#searchrepo")
+const buttons = document.querySelectorAll("#buttons > .filter-btn")
 
-export async function DisplayShortlist() {
-    const candidates = await GetUserMockApi();
-   
+
+export async function DisplayShortlist(candidates) {
     shortlistContainer.textContent = "";
 
     shortlistCount.textContent = `${candidates.length} candidat(s) dans votre shortlist`;
@@ -31,15 +34,12 @@ export async function DisplayShortlist() {
         const username = document.createElement("a");
         username.textContent = "@" + candidate.login;
         username.href = candidate.html_url;
-        username.target = "_blank";
-        username.rel = "noopener noreferrer";
         username.className = "text-xs text-gray-500 hover:text-cyan-400";
 
         const language = document.createElement("span");
         language.textContent = candidate.language;
         language.className = "ml-2 rounded-md bg-cyan-500/10 px-2 py-1 text-[10px] text-cyan-400";
-
-
+    
         const note = document.createElement("p");
         note.textContent = candidate.note || "Aucune note.";
         note.className = "mt-1 text-xs italic text-gray-400";
@@ -53,7 +53,6 @@ export async function DisplayShortlist() {
         info.appendChild(language);
         info.appendChild(note);
         info.appendChild(date);
-
         profile.appendChild(avatar);
         profile.appendChild(info);
 
@@ -67,17 +66,48 @@ export async function DisplayShortlist() {
 
         const status = document.createElement("span");
         status.textContent = candidate.status;
-
         status.className = "rounded-md border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[10px] font-bold text-cyan-400";
+        
+        const Gere = document.createElement("span");
+        Gere.className = "flex items-center gap-3";
+        const btnEdit = document.createElement("button");
+        btnEdit.textContent = "✍🏻 Modifier";
+        btnEdit.className = "rounded-lg bg-cyan-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-cyan-500";
+        const btnDelete = document.createElement("button");
+        btnDelete.textContent = "🗑️ Supprimer";
+        btnDelete.className = "rounded-lg bg-red-900 px-4 py-2 text-sm font-bold text-white transition hover:bg-red-500";
 
-  
+        Gere.append(btnEdit,btnDelete)
         actions.appendChild(rating);
         actions.appendChild(status);
+        actions.append(Gere)
         card.appendChild(profile);
         card.appendChild(actions);
-
+        deletuser(btnDelete,card ,candidate)
+        
+        ModifierUser(btnEdit, candidate)
         shortlistContainer.appendChild(card);
 
     });
 }
-DisplayShortlist()
+
+
+const candidates = await GetUserMockApi();
+DisplayShortlist(candidates)
+
+console.log(candidates)
+let selectedstatus = "all";
+let searchword = "";
+
+buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedstatus = btn.textContent
+        const userstatus = FilterSearchUser(candidates, searchword, selectedstatus)
+        console.log(userstatus)
+    })
+})
+searchrepo.addEventListener("input", (e) => {
+    searchword = e.target.value.trim()
+    const userstatus = FilterSearchUser(candidates, searchword, selectedstatus)
+    console.log(userstatus)
+  })

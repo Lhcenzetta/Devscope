@@ -57,7 +57,7 @@ async function loadProfile(username) {
         name: user.name,
         avatar_url: user.avatar_url,
         html_url: user.html_url,
-        language: "JavaScripte",
+        language: repos[0].language ? repos[0].language : "Javascripte",
         rating: 5,
         status: "À contacter",
         note: "",
@@ -82,7 +82,7 @@ btn_search.addEventListener("click", () => {
   loadProfile(user_name.value);
 });
 
-function handlefileter(datarepos) {
+export function handlefileter(datarepos) {
   let selectedLanguage = "all";
   let searchword = "";
 

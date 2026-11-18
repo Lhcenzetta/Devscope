@@ -39,3 +39,28 @@ export async function PostUser(nouveauCandidat){
     else
         afficherMessage("This user aleadry exist in ShortList !", false)
 }
+
+
+export async function DeleteuserFromMock(id) {
+    const data = await GetUserMockApi();
+    const user = data.find(user => user.id === id)
+    if (user) {
+        const response = await fetch(`${MOCKAPI_URL}/${id}`, {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+        })
+        // afficherMessage("The user has successfully deleted", true)
+    }
+}
+
+export async function Modifieruser(id , newobject) {
+    const data = await GetUserMockApi();
+    const user = data.find(user => user.id === id)
+    if (user) {
+        const response = await fetch(`${MOCKAPI_URL}/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newobject),
+        })
+    }
+}
