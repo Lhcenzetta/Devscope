@@ -49,18 +49,22 @@ export async function DeleteuserFromMock(id) {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })
-        // afficherMessage("The user has successfully deleted", true)
     }
 }
 
-export async function Modifieruser(id , newobject) {
+export async function Modifieruser(id, newobject) {
     const data = await GetUserMockApi();
-    const user = data.find(user => user.id === id)
-    if (user) {
-        const response = await fetch(`${MOCKAPI_URL}/${id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newobject),
-        })
+    const user = data.find(user => user.id === id);
+    if (!user) {
+        throw new Error("Candidate not found");
     }
+    const response = await fetch(`${MOCKAPI_URL}/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newobject)
+    });
+    if (!response.ok) {
+        throw new Error("Failed to update candidate");
+    }
+    return await response.json();
 }

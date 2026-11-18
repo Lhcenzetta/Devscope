@@ -83,7 +83,7 @@ export async function DisplayShortlist(candidates) {
         actions.append(Gere)
         card.appendChild(profile);
         card.appendChild(actions);
-        deletuser(btnDelete,card ,candidate)
+        deletuser(btnDelete, card ,candidate)
         
         ModifierUser(btnEdit, candidate)
         shortlistContainer.appendChild(card);
@@ -95,19 +95,20 @@ export async function DisplayShortlist(candidates) {
 const candidates = await GetUserMockApi();
 DisplayShortlist(candidates)
 
-console.log(candidates)
 let selectedstatus = "all";
 let searchword = "";
 
 buttons.forEach(btn => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", async () => {
         selectedstatus = btn.textContent
-        const userstatus = FilterSearchUser(candidates, searchword, selectedstatus)
-        console.log(userstatus)
+        const newcandidates = await GetUserMockApi();
+        const userstatus = FilterSearchUser(newcandidates, searchword, selectedstatus)
+        DisplayShortlist(userstatus)
     })
 })
-searchrepo.addEventListener("input", (e) => {
+searchrepo.addEventListener("input", async (e) => {
     searchword = e.target.value.trim()
-    const userstatus = FilterSearchUser(candidates, searchword, selectedstatus)
-    console.log(userstatus)
+    const newcandidates = await GetUserMockApi();
+    const userstatus = FilterSearchUser(newcandidates, searchword, selectedstatus)
+    DisplayShortlist(userstatus)
   })
