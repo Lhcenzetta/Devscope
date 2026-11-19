@@ -2,17 +2,7 @@ const countrepos = document.querySelector("#total-repos")
 const reposContainer = document.querySelector("#repositories-container");
 const error = document.querySelector("#error")
 export function InjectionReposDom(repos) {
-    
-
-    // reposContainer.textContent = "";
-    // error.classList.add("hidden");
-
-    // if (repos.length === 0) {
-    //     error.classList.remove("hidden");
-    //     error.textContent = "No repositories found.";
-    //     countrepos.textContent = 0;
-    //     return;
-    // }
+    reposContainer.textContent = "";
 
     countrepos.textContent = repos.length
     repos.forEach(repo => {

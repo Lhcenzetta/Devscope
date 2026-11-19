@@ -1,7 +1,7 @@
 const DUREE = 10 * 60 * 1000
 
 export function ranger(cle, valeur) {
-    localStorage.setItem(cle, JSON.stringify({ date: Date.now(), valeur }));
+    localStorage.setItem(cle, JSON.stringify({ date: Date.now(), valeur}));
 }
 
 export function relire(cle) {

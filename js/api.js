@@ -28,16 +28,16 @@ export async function GetUserMockApi() {
 export async function PostUser(nouveauCandidat){
     const data = await GetUserMockApi();
     const isexist = data.some(user => user.login === nouveauCandidat.login)
-    if (!isexist){
+    if (!isexist) {
         const response = await fetch(MOCKAPI_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(nouveauCandidat)
-     })
-     afficherMessage("The user has add successfully", true)
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nouveauCandidat)
+        })
+        afficherMessage("The user has add successfully", true)
+        return;
     }
-    else
-        afficherMessage("This user aleadry exist in ShortList !", false)
+    afficherMessage("This user aleadry exist in ShortList !", false)
 }
 
 
@@ -49,6 +49,8 @@ export async function DeleteuserFromMock(id) {
             method: "DELETE",
             headers: { "Content-Type": "application/json" },
         })
+        afficherMessage("The user has deleted successfully", true)
+        return;
     }
 }
 
@@ -63,6 +65,7 @@ export async function Modifieruser(id, newobject) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newobject)
     });
+    afficherMessage("The user has Modified successfully", true)
     if (!response.ok) {
         throw new Error("Failed to update candidate");
     }

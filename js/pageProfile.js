@@ -45,16 +45,20 @@ if (!username) {
 async function loadProfile(username) {
   showLoading();
   try {
-    let user = relire(username) 
+    let user;
     let repos;
-    if (user === null) {
+    let infoUser = relire(username) 
+    if (infoUser === null) {
       [user, repos] = await Promise.all([getUser(username), getRepos(username)])
-      ranger(username , user)
+      console.log([user, repos])
+      ranger(username, [user, repos])
     }
-    else {
-      repos = await getRepos(username);
+    else 
+    {
+      user = infoUser[0];
+      repos = infoUser[1];
+
     }
-    
     currentUser = user;
     IjnectUser(user)
     InjectionReposDom(repos)
@@ -84,12 +88,11 @@ async function loadProfile(username) {
     hideLoading();
   }
 }
-
-loadProfile(username);
-
 btn_search.addEventListener("click", () => {
+  console.log(user_name.value)
   loadProfile(user_name.value);
 });
+loadProfile(username);
 
 export function handlefileter(datarepos) {
   let selectedLanguage = "all";
