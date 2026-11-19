@@ -49,8 +49,6 @@ async function loadProfile(username) {
     let repos;
     if (user === null) {
       [user, repos] = await Promise.all([getUser(username), getRepos(username)])
-      // user = await getUser(username);
-      // const repos = await getRepos(username);
       ranger(username , user)
     }
     else {
